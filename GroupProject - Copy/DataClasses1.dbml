@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Database1" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Database1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Address" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="Address_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Address_House_No" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Address_Street_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address_City" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address_Postal_Code" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
+      <Association Name="Address_UserAddress" Member="UserAddresses" ThisKey="Address_ID" OtherKey="Address_ID" Type="UserAddress" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Admin" Member="Admins">
+    <Type Name="Admin">
+      <Column Name="Admin_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="User_Admin" Member="User" ThisKey="Admin_ID" OtherKey="User_ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Card" Member="Cards">
+    <Type Name="Card">
+      <Column Name="Card_Acc_Number" Type="System.String" DbType="VarChar(11) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Card_Number" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Card_Sec_Code" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="Card_Exp_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Card_IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Card" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Category_Product" Member="Products" ThisKey="Category_ID" OtherKey="Category_ID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customer" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Customer_Created_at" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_Activity" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Customer_Card" Member="Cards" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Card" />
+      <Association Name="Customer_Invoice" Member="Invoices" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Invoice" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Order" />
+      <Association Name="Customer_UserAddress" Member="UserAddresses" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="UserAddress" />
+      <Association Name="User_Customer" Member="User" ThisKey="Customer_ID" OtherKey="User_ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoice" Member="Invoices">
+    <Type Name="Invoice">
+      <Column Name="Invoice_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Invoice_Created_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Invoice_Invoiceline" Member="Invoicelines" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="Invoiceline" />
+      <Association Name="Customer_Invoice" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Invoiceline" Member="Invoicelines">
+    <Type Name="Invoiceline">
+      <Column Name="Invoiceline_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Invoice_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Invoiceline_Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Invoice_Invoiceline" Member="Invoice" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="Invoice" IsForeignKey="true" />
+      <Association Name="Product_Invoiceline" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Order_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Order_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Delivery_Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Order_ID" OtherKey="Order_ID" Type="OrderItem" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OrderItem" Member="OrderItems">
+    <Type Name="OrderItem">
+      <Column Name="OrderItem_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Order_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderItem_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
+      <Association Name="Product_OrderItem" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Brand" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Price" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Availability" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Updated_At" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_Invoiceline" Member="Invoicelines" ThisKey="Product_ID" OtherKey="Product_ID" Type="Invoiceline" />
+      <Association Name="Product_OrderItem" Member="OrderItems" ThisKey="Product_ID" OtherKey="Product_ID" Type="OrderItem" />
+      <Association Name="Category_Product" Member="Category" ThisKey="Category_ID" OtherKey="Category_ID" Type="Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="User_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="User_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Surname" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Phone_Number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="User_Email" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Password_Hash" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="User_Type" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Admin" Member="Admin" ThisKey="User_ID" OtherKey="Admin_ID" Type="Admin" Cardinality="One" />
+      <Association Name="User_Customer" Member="Customer" ThisKey="User_ID" OtherKey="Customer_ID" Type="Customer" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserAddress" Member="UserAddresses">
+    <Type Name="UserAddress">
+      <Column Name="Address_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Is_Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Address_UserAddress" Member="Address" ThisKey="Address_ID" OtherKey="Address_ID" Type="Address" IsForeignKey="true" />
+      <Association Name="Customer_UserAddress" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

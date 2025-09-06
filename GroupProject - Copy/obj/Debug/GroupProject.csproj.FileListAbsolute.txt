@@ -1,0 +1,7 @@
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\bin\GroupProject.dll.config
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\bin\GroupProject.dll
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\bin\GroupProject.pdb
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\obj\Debug\GroupProject.csproj.AssemblyReference.cache
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\obj\Debug\GroupProject.csproj.CoreCompileInputs.cache
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\obj\Debug\GroupProject.dll
+C:\Users\intel\OneDrive\Documents\University Work\Programming Modules\Informatics\2025\IFM02B2\Group Project Docs\2EZ4Project-main (1)\2EZ4Project-main\GroupProject\obj\Debug\GroupProject.pdb
