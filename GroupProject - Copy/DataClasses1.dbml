@@ -7,7 +7,6 @@
       <Column Name="Address_Street_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Address_City" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Address_Postal_Code" Type="System.String" DbType="VarChar(4)" CanBeNull="true" />
-      <Association Name="Address_UserAddress" Member="UserAddresses" ThisKey="Address_ID" OtherKey="Address_ID" Type="UserAddress" />
     </Type>
   </Table>
   <Table Name="dbo.Admin" Member="Admins">
@@ -37,20 +36,18 @@
   <Table Name="dbo.Customer" Member="Customers">
     <Type Name="Customer">
       <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Customer_Created_at" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Customer_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Customer_Activity" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Customer_Card" Member="Cards" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Card" />
       <Association Name="Customer_Invoice" Member="Invoices" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Invoice" />
       <Association Name="Customer_Order" Member="Orders" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Order" />
-      <Association Name="Customer_UserAddress" Member="UserAddresses" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="UserAddress" />
-      <Association Name="User_Customer" Member="User" ThisKey="Customer_ID" OtherKey="User_ID" Type="User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Invoice" Member="Invoices">
     <Type Name="Invoice">
       <Column Name="Invoice_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Customer_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Invoice_Created_Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Invoice_Created_Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Invoice_Invoiceline" Member="Invoicelines" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="Invoiceline" />
       <Association Name="Customer_Invoice" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
     </Type>
@@ -65,25 +62,14 @@
       <Association Name="Product_Invoiceline" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[Order]" Member="Orders">
-    <Type Name="Order">
-      <Column Name="Order_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Customer_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Order_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="Order_Delivery_Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Order_Created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Order_ID" OtherKey="Order_ID" Type="OrderItem" />
-      <Association Name="Customer_Order" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.OrderItem" Member="OrderItems">
     <Type Name="OrderItem">
       <Column Name="OrderItem_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Order_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Product_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="OrderItem_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Order_OrderItem" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
       <Association Name="Product_OrderItem" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+      <Association Name="Order_OrderItem" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Product" Member="Products">
@@ -91,8 +77,10 @@
       <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Category_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Product_Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Image" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
       <Column Name="Product_Brand" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="Product_Price" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Product_Description" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
       <Column Name="Product_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Product_Availability" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Product_Updated_At" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -111,16 +99,16 @@
       <Column Name="User_Password_Hash" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="User_Type" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
       <Association Name="User_Admin" Member="Admin" ThisKey="User_ID" OtherKey="Admin_ID" Type="Admin" Cardinality="One" />
-      <Association Name="User_Customer" Member="Customer" ThisKey="User_ID" OtherKey="Customer_ID" Type="Customer" Cardinality="One" />
     </Type>
   </Table>
-  <Table Name="dbo.UserAddress" Member="UserAddresses">
-    <Type Name="UserAddress">
-      <Column Name="Address_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Is_Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Address_UserAddress" Member="Address" ThisKey="Address_ID" OtherKey="Address_ID" Type="Address" IsForeignKey="true" />
-      <Association Name="Customer_UserAddress" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
+  <Table Name="dbo.[Order]" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Order_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Customer_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Order_Delivery_Status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Order_OrderItem" Member="OrderItems" ThisKey="Order_ID" OtherKey="Order_ID" Type="OrderItem" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

@@ -1,0 +1,7 @@
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\bin\GroupProject.dll.config
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\bin\GroupProject.dll
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\bin\GroupProject.pdb
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\obj\Release\GroupProject.csproj.AssemblyReference.cache
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\obj\Release\GroupProject.csproj.CoreCompileInputs.cache
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\obj\Release\GroupProject.dll
+C:\Users\intel\OneDrive\Documents\GitHub\2EZ4Project\GroupProject - Copy\obj\Release\GroupProject.pdb

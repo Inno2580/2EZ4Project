@@ -51,9 +51,6 @@ namespace GroupProject
     partial void InsertInvoiceline(Invoiceline instance);
     partial void UpdateInvoiceline(Invoiceline instance);
     partial void DeleteInvoiceline(Invoiceline instance);
-    partial void InsertOrder(Order instance);
-    partial void UpdateOrder(Order instance);
-    partial void DeleteOrder(Order instance);
     partial void InsertOrderItem(OrderItem instance);
     partial void UpdateOrderItem(OrderItem instance);
     partial void DeleteOrderItem(OrderItem instance);
@@ -63,9 +60,9 @@ namespace GroupProject
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
-    partial void InsertUserAddress(UserAddress instance);
-    partial void UpdateUserAddress(UserAddress instance);
-    partial void DeleteUserAddress(UserAddress instance);
+    partial void InsertOrder(Order instance);
+    partial void UpdateOrder(Order instance);
+    partial void DeleteOrder(Order instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -154,14 +151,6 @@ namespace GroupProject
 			}
 		}
 		
-		public System.Data.Linq.Table<Order> Orders
-		{
-			get
-			{
-				return this.GetTable<Order>();
-			}
-		}
-		
 		public System.Data.Linq.Table<OrderItem> OrderItems
 		{
 			get
@@ -186,11 +175,11 @@ namespace GroupProject
 			}
 		}
 		
-		public System.Data.Linq.Table<UserAddress> UserAddresses
+		public System.Data.Linq.Table<Order> Orders
 		{
 			get
 			{
-				return this.GetTable<UserAddress>();
+				return this.GetTable<Order>();
 			}
 		}
 	}
@@ -211,8 +200,6 @@ namespace GroupProject
 		
 		private string _Address_Postal_Code;
 		
-		private EntitySet<UserAddress> _UserAddresses;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -231,7 +218,6 @@ namespace GroupProject
 		
 		public Address()
 		{
-			this._UserAddresses = new EntitySet<UserAddress>(new Action<UserAddress>(this.attach_UserAddresses), new Action<UserAddress>(this.detach_UserAddresses));
 			OnCreated();
 		}
 		
@@ -335,19 +321,6 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Address_UserAddress", Storage="_UserAddresses", ThisKey="Address_ID", OtherKey="Address_ID")]
-		public EntitySet<UserAddress> UserAddresses
-		{
-			get
-			{
-				return this._UserAddresses;
-			}
-			set
-			{
-				this._UserAddresses.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -366,18 +339,6 @@ namespace GroupProject
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_UserAddresses(UserAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Address = this;
-		}
-		
-		private void detach_UserAddresses(UserAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Address = null;
 		}
 	}
 	
@@ -829,7 +790,7 @@ namespace GroupProject
 		
 		private int _Customer_ID;
 		
-		private System.DateTime _Customer_Created_at;
+		private System.DateTime _Customer_Date;
 		
 		private bool _Customer_Activity;
 		
@@ -839,18 +800,14 @@ namespace GroupProject
 		
 		private EntitySet<Order> _Orders;
 		
-		private EntitySet<UserAddress> _UserAddresses;
-		
-		private EntityRef<User> _User;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnCustomer_IDChanging(int value);
     partial void OnCustomer_IDChanged();
-    partial void OnCustomer_Created_atChanging(System.DateTime value);
-    partial void OnCustomer_Created_atChanged();
+    partial void OnCustomer_DateChanging(System.DateTime value);
+    partial void OnCustomer_DateChanged();
     partial void OnCustomer_ActivityChanging(bool value);
     partial void OnCustomer_ActivityChanged();
     #endregion
@@ -860,8 +817,6 @@ namespace GroupProject
 			this._Cards = new EntitySet<Card>(new Action<Card>(this.attach_Cards), new Action<Card>(this.detach_Cards));
 			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._UserAddresses = new EntitySet<UserAddress>(new Action<UserAddress>(this.attach_UserAddresses), new Action<UserAddress>(this.detach_UserAddresses));
-			this._User = default(EntityRef<User>);
 			OnCreated();
 		}
 		
@@ -876,10 +831,6 @@ namespace GroupProject
 			{
 				if ((this._Customer_ID != value))
 				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnCustomer_IDChanging(value);
 					this.SendPropertyChanging();
 					this._Customer_ID = value;
@@ -889,22 +840,22 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_Created_at", DbType="DateTime NOT NULL")]
-		public System.DateTime Customer_Created_at
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_Date", DbType="Date NOT NULL")]
+		public System.DateTime Customer_Date
 		{
 			get
 			{
-				return this._Customer_Created_at;
+				return this._Customer_Date;
 			}
 			set
 			{
-				if ((this._Customer_Created_at != value))
+				if ((this._Customer_Date != value))
 				{
-					this.OnCustomer_Created_atChanging(value);
+					this.OnCustomer_DateChanging(value);
 					this.SendPropertyChanging();
-					this._Customer_Created_at = value;
-					this.SendPropertyChanged("Customer_Created_at");
-					this.OnCustomer_Created_atChanged();
+					this._Customer_Date = value;
+					this.SendPropertyChanged("Customer_Date");
+					this.OnCustomer_DateChanged();
 				}
 			}
 		}
@@ -968,53 +919,6 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_UserAddress", Storage="_UserAddresses", ThisKey="Customer_ID", OtherKey="Customer_ID")]
-		public EntitySet<UserAddress> UserAddresses
-		{
-			get
-			{
-				return this._UserAddresses;
-			}
-			set
-			{
-				this._UserAddresses.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Customer", Storage="_User", ThisKey="Customer_ID", OtherKey="User_ID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Customer = null;
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Customer = this;
-						this._Customer_ID = value.User_ID;
-					}
-					else
-					{
-						this._Customer_ID = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1070,18 +974,6 @@ namespace GroupProject
 			this.SendPropertyChanging();
 			entity.Customer = null;
 		}
-		
-		private void attach_UserAddresses(UserAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = this;
-		}
-		
-		private void detach_UserAddresses(UserAddress entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Invoice")]
@@ -1092,9 +984,9 @@ namespace GroupProject
 		
 		private int _Invoice_ID;
 		
-		private System.Nullable<int> _Customer_ID;
+		private int _Customer_ID;
 		
-		private System.Nullable<System.DateTime> _Invoice_Created_Date;
+		private System.DateTime _Invoice_Created_Date;
 		
 		private EntitySet<Invoiceline> _Invoicelines;
 		
@@ -1106,9 +998,9 @@ namespace GroupProject
     partial void OnCreated();
     partial void OnInvoice_IDChanging(int value);
     partial void OnInvoice_IDChanged();
-    partial void OnCustomer_IDChanging(System.Nullable<int> value);
+    partial void OnCustomer_IDChanging(int value);
     partial void OnCustomer_IDChanged();
-    partial void OnInvoice_Created_DateChanging(System.Nullable<System.DateTime> value);
+    partial void OnInvoice_Created_DateChanging(System.DateTime value);
     partial void OnInvoice_Created_DateChanged();
     #endregion
 		
@@ -1139,8 +1031,8 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_ID", DbType="Int")]
-		public System.Nullable<int> Customer_ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_ID", DbType="Int NOT NULL")]
+		public int Customer_ID
 		{
 			get
 			{
@@ -1163,8 +1055,8 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Invoice_Created_Date", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Invoice_Created_Date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Invoice_Created_Date", DbType="DateTime NOT NULL")]
+		public System.DateTime Invoice_Created_Date
 		{
 			get
 			{
@@ -1223,7 +1115,7 @@ namespace GroupProject
 					}
 					else
 					{
-						this._Customer_ID = default(Nullable<int>);
+						this._Customer_ID = default(int);
 					}
 					this.SendPropertyChanged("Customer");
 				}
@@ -1479,233 +1371,6 @@ namespace GroupProject
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Order]")]
-	public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Order_ID;
-		
-		private System.Nullable<int> _Customer_ID;
-		
-		private System.DateTime _Order_Date;
-		
-		private bool _Order_Delivery_Status;
-		
-		private System.DateTime _Order_Created_date;
-		
-		private EntitySet<OrderItem> _OrderItems;
-		
-		private EntityRef<Customer> _Customer;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnOrder_IDChanging(int value);
-    partial void OnOrder_IDChanged();
-    partial void OnCustomer_IDChanging(System.Nullable<int> value);
-    partial void OnCustomer_IDChanged();
-    partial void OnOrder_DateChanging(System.DateTime value);
-    partial void OnOrder_DateChanged();
-    partial void OnOrder_Delivery_StatusChanging(bool value);
-    partial void OnOrder_Delivery_StatusChanged();
-    partial void OnOrder_Created_dateChanging(System.DateTime value);
-    partial void OnOrder_Created_dateChanged();
-    #endregion
-		
-		public Order()
-		{
-			this._OrderItems = new EntitySet<OrderItem>(new Action<OrderItem>(this.attach_OrderItems), new Action<OrderItem>(this.detach_OrderItems));
-			this._Customer = default(EntityRef<Customer>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Order_ID
-		{
-			get
-			{
-				return this._Order_ID;
-			}
-			set
-			{
-				if ((this._Order_ID != value))
-				{
-					this.OnOrder_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Order_ID = value;
-					this.SendPropertyChanged("Order_ID");
-					this.OnOrder_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_ID", DbType="Int")]
-		public System.Nullable<int> Customer_ID
-		{
-			get
-			{
-				return this._Customer_ID;
-			}
-			set
-			{
-				if ((this._Customer_ID != value))
-				{
-					if (this._Customer.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCustomer_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Customer_ID = value;
-					this.SendPropertyChanged("Customer_ID");
-					this.OnCustomer_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Date", DbType="Date NOT NULL")]
-		public System.DateTime Order_Date
-		{
-			get
-			{
-				return this._Order_Date;
-			}
-			set
-			{
-				if ((this._Order_Date != value))
-				{
-					this.OnOrder_DateChanging(value);
-					this.SendPropertyChanging();
-					this._Order_Date = value;
-					this.SendPropertyChanged("Order_Date");
-					this.OnOrder_DateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Delivery_Status", DbType="Bit NOT NULL")]
-		public bool Order_Delivery_Status
-		{
-			get
-			{
-				return this._Order_Delivery_Status;
-			}
-			set
-			{
-				if ((this._Order_Delivery_Status != value))
-				{
-					this.OnOrder_Delivery_StatusChanging(value);
-					this.SendPropertyChanging();
-					this._Order_Delivery_Status = value;
-					this.SendPropertyChanged("Order_Delivery_Status");
-					this.OnOrder_Delivery_StatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Created_date", DbType="DateTime NOT NULL")]
-		public System.DateTime Order_Created_date
-		{
-			get
-			{
-				return this._Order_Created_date;
-			}
-			set
-			{
-				if ((this._Order_Created_date != value))
-				{
-					this.OnOrder_Created_dateChanging(value);
-					this.SendPropertyChanging();
-					this._Order_Created_date = value;
-					this.SendPropertyChanged("Order_Created_date");
-					this.OnOrder_Created_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderItem", Storage="_OrderItems", ThisKey="Order_ID", OtherKey="Order_ID")]
-		public EntitySet<OrderItem> OrderItems
-		{
-			get
-			{
-				return this._OrderItems;
-			}
-			set
-			{
-				this._OrderItems.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Customer", ThisKey="Customer_ID", OtherKey="Customer_ID", IsForeignKey=true)]
-		public Customer Customer
-		{
-			get
-			{
-				return this._Customer.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Customer.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._Customer_ID = value.Customer_ID;
-					}
-					else
-					{
-						this._Customer_ID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Customer");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_OrderItems(OrderItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.Order = this;
-		}
-		
-		private void detach_OrderItems(OrderItem entity)
-		{
-			this.SendPropertyChanging();
-			entity.Order = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.OrderItem")]
 	public partial class OrderItem : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1720,9 +1385,9 @@ namespace GroupProject
 		
 		private int _OrderItem_Quantity;
 		
-		private EntityRef<Order> _Order;
-		
 		private EntityRef<Product> _Product;
+		
+		private EntityRef<Order> _Order;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1740,8 +1405,8 @@ namespace GroupProject
 		
 		public OrderItem()
 		{
-			this._Order = default(EntityRef<Order>);
 			this._Product = default(EntityRef<Product>);
+			this._Order = default(EntityRef<Order>);
 			OnCreated();
 		}
 		
@@ -1833,40 +1498,6 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderItem", Storage="_Order", ThisKey="Order_ID", OtherKey="Order_ID", IsForeignKey=true)]
-		public Order Order
-		{
-			get
-			{
-				return this._Order.Entity;
-			}
-			set
-			{
-				Order previousValue = this._Order.Entity;
-				if (((previousValue != value) 
-							|| (this._Order.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Order.Entity = null;
-						previousValue.OrderItems.Remove(this);
-					}
-					this._Order.Entity = value;
-					if ((value != null))
-					{
-						value.OrderItems.Add(this);
-						this._Order_ID = value.Order_ID;
-					}
-					else
-					{
-						this._Order_ID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Order");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_OrderItem", Storage="_Product", ThisKey="Product_ID", OtherKey="Product_ID", IsForeignKey=true)]
 		public Product Product
 		{
@@ -1897,6 +1528,40 @@ namespace GroupProject
 						this._Product_ID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Product");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderItem", Storage="_Order", ThisKey="Order_ID", OtherKey="Order_ID", IsForeignKey=true)]
+		public Order Order
+		{
+			get
+			{
+				return this._Order.Entity;
+			}
+			set
+			{
+				Order previousValue = this._Order.Entity;
+				if (((previousValue != value) 
+							|| (this._Order.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Order.Entity = null;
+						previousValue.OrderItems.Remove(this);
+					}
+					this._Order.Entity = value;
+					if ((value != null))
+					{
+						value.OrderItems.Add(this);
+						this._Order_ID = value.Order_ID;
+					}
+					else
+					{
+						this._Order_ID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Order");
 				}
 			}
 		}
@@ -1934,9 +1599,13 @@ namespace GroupProject
 		
 		private string _Product_Name;
 		
+		private string _Product_Image;
+		
 		private string _Product_Brand;
 		
 		private decimal _Product_Price;
+		
+		private string _Product_Description;
 		
 		private int _Product_Quantity;
 		
@@ -1960,10 +1629,14 @@ namespace GroupProject
     partial void OnCategory_IDChanged();
     partial void OnProduct_NameChanging(string value);
     partial void OnProduct_NameChanged();
+    partial void OnProduct_ImageChanging(string value);
+    partial void OnProduct_ImageChanged();
     partial void OnProduct_BrandChanging(string value);
     partial void OnProduct_BrandChanged();
     partial void OnProduct_PriceChanging(decimal value);
     partial void OnProduct_PriceChanged();
+    partial void OnProduct_DescriptionChanging(string value);
+    partial void OnProduct_DescriptionChanged();
     partial void OnProduct_QuantityChanging(int value);
     partial void OnProduct_QuantityChanged();
     partial void OnProduct_AvailabilityChanging(bool value);
@@ -2044,6 +1717,26 @@ namespace GroupProject
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_Image", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+		public string Product_Image
+		{
+			get
+			{
+				return this._Product_Image;
+			}
+			set
+			{
+				if ((this._Product_Image != value))
+				{
+					this.OnProduct_ImageChanging(value);
+					this.SendPropertyChanging();
+					this._Product_Image = value;
+					this.SendPropertyChanged("Product_Image");
+					this.OnProduct_ImageChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_Brand", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
 		public string Product_Brand
 		{
@@ -2080,6 +1773,26 @@ namespace GroupProject
 					this._Product_Price = value;
 					this.SendPropertyChanged("Product_Price");
 					this.OnProduct_PriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_Description", DbType="VarChar(250) NOT NULL", CanBeNull=false)]
+		public string Product_Description
+		{
+			get
+			{
+				return this._Product_Description;
+			}
+			set
+			{
+				if ((this._Product_Description != value))
+				{
+					this.OnProduct_DescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Product_Description = value;
+					this.SendPropertyChanged("Product_Description");
+					this.OnProduct_DescriptionChanged();
 				}
 			}
 		}
@@ -2271,8 +1984,6 @@ namespace GroupProject
 		
 		private EntityRef<Admin> _Admin;
 		
-		private EntityRef<Customer> _Customer;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2296,7 +2007,6 @@ namespace GroupProject
 		public User()
 		{
 			this._Admin = default(EntityRef<Admin>);
-			this._Customer = default(EntityRef<Customer>);
 			OnCreated();
 		}
 		
@@ -2469,35 +2179,6 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Customer", Storage="_Customer", ThisKey="User_ID", OtherKey="Customer_ID", IsUnique=true, IsForeignKey=false)]
-		public Customer Customer
-		{
-			get
-			{
-				return this._Customer.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer.Entity = null;
-						previousValue.User = null;
-					}
-					this._Customer.Entity = value;
-					if ((value != null))
-					{
-						value.User = this;
-					}
-					this.SendPropertyChanged("Customer");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2519,19 +2200,21 @@ namespace GroupProject
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UserAddress")]
-	public partial class UserAddress : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[Order]")]
+	public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Address_ID;
+		private int _Order_ID;
 		
 		private int _Customer_ID;
 		
-		private bool _Is_Active;
+		private System.DateTime _Order_Date;
 		
-		private EntityRef<Address> _Address;
+		private bool _Order_Delivery_Status;
+		
+		private EntitySet<OrderItem> _OrderItems;
 		
 		private EntityRef<Customer> _Customer;
 		
@@ -2539,46 +2222,44 @@ namespace GroupProject
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnAddress_IDChanging(int value);
-    partial void OnAddress_IDChanged();
+    partial void OnOrder_IDChanging(int value);
+    partial void OnOrder_IDChanged();
     partial void OnCustomer_IDChanging(int value);
     partial void OnCustomer_IDChanged();
-    partial void OnIs_ActiveChanging(bool value);
-    partial void OnIs_ActiveChanged();
+    partial void OnOrder_DateChanging(System.DateTime value);
+    partial void OnOrder_DateChanged();
+    partial void OnOrder_Delivery_StatusChanging(bool value);
+    partial void OnOrder_Delivery_StatusChanged();
     #endregion
 		
-		public UserAddress()
+		public Order()
 		{
-			this._Address = default(EntityRef<Address>);
+			this._OrderItems = new EntitySet<OrderItem>(new Action<OrderItem>(this.attach_OrderItems), new Action<OrderItem>(this.detach_OrderItems));
 			this._Customer = default(EntityRef<Customer>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Address_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Address_ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Order_ID
 		{
 			get
 			{
-				return this._Address_ID;
+				return this._Order_ID;
 			}
 			set
 			{
-				if ((this._Address_ID != value))
+				if ((this._Order_ID != value))
 				{
-					if (this._Address.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnAddress_IDChanging(value);
+					this.OnOrder_IDChanging(value);
 					this.SendPropertyChanging();
-					this._Address_ID = value;
-					this.SendPropertyChanged("Address_ID");
-					this.OnAddress_IDChanged();
+					this._Order_ID = value;
+					this.SendPropertyChanged("Order_ID");
+					this.OnOrder_IDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Customer_ID", DbType="Int NOT NULL")]
 		public int Customer_ID
 		{
 			get
@@ -2602,61 +2283,60 @@ namespace GroupProject
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Is_Active", DbType="Bit NOT NULL")]
-		public bool Is_Active
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Date", DbType="Date NOT NULL")]
+		public System.DateTime Order_Date
 		{
 			get
 			{
-				return this._Is_Active;
+				return this._Order_Date;
 			}
 			set
 			{
-				if ((this._Is_Active != value))
+				if ((this._Order_Date != value))
 				{
-					this.OnIs_ActiveChanging(value);
+					this.OnOrder_DateChanging(value);
 					this.SendPropertyChanging();
-					this._Is_Active = value;
-					this.SendPropertyChanged("Is_Active");
-					this.OnIs_ActiveChanged();
+					this._Order_Date = value;
+					this.SendPropertyChanged("Order_Date");
+					this.OnOrder_DateChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Address_UserAddress", Storage="_Address", ThisKey="Address_ID", OtherKey="Address_ID", IsForeignKey=true)]
-		public Address Address
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_Delivery_Status", DbType="Bit NOT NULL")]
+		public bool Order_Delivery_Status
 		{
 			get
 			{
-				return this._Address.Entity;
+				return this._Order_Delivery_Status;
 			}
 			set
 			{
-				Address previousValue = this._Address.Entity;
-				if (((previousValue != value) 
-							|| (this._Address.HasLoadedOrAssignedValue == false)))
+				if ((this._Order_Delivery_Status != value))
 				{
+					this.OnOrder_Delivery_StatusChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Address.Entity = null;
-						previousValue.UserAddresses.Remove(this);
-					}
-					this._Address.Entity = value;
-					if ((value != null))
-					{
-						value.UserAddresses.Add(this);
-						this._Address_ID = value.Address_ID;
-					}
-					else
-					{
-						this._Address_ID = default(int);
-					}
-					this.SendPropertyChanged("Address");
+					this._Order_Delivery_Status = value;
+					this.SendPropertyChanged("Order_Delivery_Status");
+					this.OnOrder_Delivery_StatusChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_UserAddress", Storage="_Customer", ThisKey="Customer_ID", OtherKey="Customer_ID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_OrderItem", Storage="_OrderItems", ThisKey="Order_ID", OtherKey="Order_ID")]
+		public EntitySet<OrderItem> OrderItems
+		{
+			get
+			{
+				return this._OrderItems;
+			}
+			set
+			{
+				this._OrderItems.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Customer", ThisKey="Customer_ID", OtherKey="Customer_ID", IsForeignKey=true)]
 		public Customer Customer
 		{
 			get
@@ -2673,12 +2353,12 @@ namespace GroupProject
 					if ((previousValue != null))
 					{
 						this._Customer.Entity = null;
-						previousValue.UserAddresses.Remove(this);
+						previousValue.Orders.Remove(this);
 					}
 					this._Customer.Entity = value;
 					if ((value != null))
 					{
-						value.UserAddresses.Add(this);
+						value.Orders.Add(this);
 						this._Customer_ID = value.Customer_ID;
 					}
 					else
@@ -2708,6 +2388,18 @@ namespace GroupProject
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_OrderItems(OrderItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Order = this;
+		}
+		
+		private void detach_OrderItems(OrderItem entity)
+		{
+			this.SendPropertyChanging();
+			entity.Order = null;
 		}
 	}
 }
