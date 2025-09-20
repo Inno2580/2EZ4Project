@@ -1,0 +1,168 @@
+.centered{
+    margin: 0 auto;
+    text-align: center;
+}
+.container{
+    width:80%;
+    max-width: 500px;
+    margin:auto auto;
+    padding: 40px;
+    background-color:white;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.username{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.username:focus{
+    outline: 3px solid white;
+}
+
+.password{
+  width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}  
+
+.password:focus{
+     outline: 3px solid white;
+}
+
+
+.login{
+    color:white;
+    background-color: rgb(150, 232, 63);
+    width:60%;
+    height:40px;
+    border-radius: 8px;
+    border:1px solid #a0a0a0;
+    cursor:pointer;
+}
+
+.register{
+    color:white;
+    background-color: rgb(150, 232, 63);
+    width:60%;
+    height:40px;
+    border-radius: 8px;
+    border:none;
+    cursor:pointer;
+}
+.forgot{
+    margin-left: 50%;
+    color:grey;
+}
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider:not(:empty)::before {
+  margin-right: 10px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 10px;
+}
+
+.divider span {
+  white-space: nowrap;
+  color: #666;
+  font-weight: 500;
+}
+.Email{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Email:focus{
+outline: 3px solid white;
+}
+
+.Mobile{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Mobile:focus{
+    outline: 3px solid white;
+}
+.Password{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Password:focus{
+    outline: 3px solid white;
+}
+.rePassword{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.rePassword:focus{
+    outline: 3px solid white;
+}
+
+.name{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.name:focus{
+     outline: 3px solid white;
+}
+.surname{
+    width: 80%;
+    height: 30px;
+    border-radius: 8px;
+    border:none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.surname:focus{
+     outline: 3px solid white;
+}
+.register{
+   color:white;
+    background-color: rgb(150, 232, 63);
+    width:60%;
+    height:40px;
+    border-radius: 8px;
+    border:none;
+    cursor:pointer;
+}
+.logo{
+    width:10%;
+    height:10%;
+}
+.usertype{
+    padding-left: 10%;
+    text-align: left;
+    color:grey;
+}

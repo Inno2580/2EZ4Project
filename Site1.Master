@@ -1,0 +1,57 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="OffTheGrit1.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server">
+        </asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav>
+
+                <a href="/">
+                    <img src="./images/OTG-logo.png" width="50" alt="./images/logo.png"></a>
+
+                <div class="nav-texts">
+                    <p><a href="./Login.aspx">Hello, Sign in</a></p>
+                    <h1>To Account<img src="#" width="8px" alt=""></h1>
+                </div>
+
+                <div class="nav-search">
+                    <input class="nav-search-input" type="text" placeholder="Search" id="search">
+                    <img src="https://img.icons8.com/?size=100&id=132&format=png&color=000000" class="nav-search-icon" alt="">
+                </div>
+
+                <div class="nav-texts">
+                    <p>Personal</p>
+                    <h1>Wish-List</h1>
+                </div>
+
+                <a href="" class="mobile-user-icon" style="display: none;">
+                    <img src="./images/account-white-icon.png">
+                </a>
+
+                <a href="/" class="nav-cart">
+                    <img src="./images/shopping-cart.png" width="35px" alt="">
+                    <!--<h4>Cart</h4>-->
+                </a>
+
+            </nav>
+             <footer>
+                <div class="centered">
+                    <p>© 2025, OFF THE GRID, Inc. or its affiliates</p>
+                </div>
+            </footer>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

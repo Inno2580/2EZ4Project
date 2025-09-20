@@ -1,0 +1,375 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+/*General*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI',Verdana,Arial,sans-serif
+}
+
+body {
+    background: #fff
+}
+
+.myButton, #water {
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+   
+    .myButton:hover, #water:hover {
+        filter: brightness(0.97);
+    }
+
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+/*Navigation Bar*/
+nav {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    padding: 5px 10px;
+    color: #000;
+    max-height: 60px;
+    border-bottom: 1px solid #70707070;
+    justify-content: space-between
+}
+
+.nav-texts {
+    margin-left: 15px;
+}
+
+    .nav-texts:hover {
+        border-radius: 4px 4px 4px 4px;
+        background-color: #00ab66;
+        height: 100%;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .nav-texts p {
+        font-size: 10px;
+    }
+
+    .nav-texts h1 {
+        font-size: 14px;
+    }
+
+.nav-categories {
+    display: inline-flex;
+    gap: 10px;
+    font-size: 8px;
+    align-items: center;
+}
+
+    .nav-categories p {
+        font-size: 15px;
+    }
+
+.nav-water {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
+}
+
+    .nav-water:hover {
+        border-radius: 4px 4px 4px 4px;
+        background-color: #00ab66;
+        height: 100%;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+.nav-solar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+}
+
+    .nav-solar:hover {
+        border-radius: 4px 4px 4px 4px;
+        background-color: #00ab66;
+        height: 100%;
+        color: white;
+        padding: 5px;
+        cursor: pointer;
+    }
+/*space between all sections*/
+section {
+    margin: 20px;
+    margin-bottom: 60px;
+}
+
+.image-slider {
+    align-items: center;
+    text-align: center;
+}
+    /*Advertisement*/
+    .image-slider img {
+        height: 100%;
+        width: 100%;
+        border-radius: 15px;
+        /*testing*/
+        min-height: 50vh;
+        height: 1vh;
+        box-sizing: content-box;
+    }
+
+    .image-slider a {
+        color: #000;
+        z-index: 1;
+        position: absolute;
+        top: 25%;
+        margin: 21px;
+        /*padding:5vh 4vw;*/
+        cursor: pointer;
+        /* Make smaller circle */
+        width: 40px;
+        height: 40px;
+        line-height: 40px; /* centers arrow vertically */
+        text-align: center;
+        font-size: 15px;
+        border-radius: 50%;
+        background: rgba(193, 193, 193, 0.503);
+    }
+
+.control_prev {
+    left: 0
+}
+
+.control_next {
+    right: 0;
+}
+
+/*Solutions*/
+.solutions-text {
+    text-align: center;
+    justify-content: center;
+}
+
+    .solutions-text h3 {
+        /* color:rgba(255, 213, 0, 0.8);*/
+        color: #00ab66;
+        font-size: 60px;
+    }
+
+.solutions-box-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    z-index: 1;
+    gap: 10px
+}
+
+.solutions-col {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    padding: 8px;
+    border-radius: 15px;
+    border: 3px solid #00ab670a;
+    min-width: 250px;
+    max-width: 24%;
+}
+
+.solutions-col-img {
+    display: flex;
+    max-width: 100%;
+}
+
+.solutions-col-text h3 {
+    font-size: 40px;
+}
+
+.solutions-col-heading {
+    display: flex;
+}
+
+
+/*explanations*/
+
+.explanations {
+    display: flex;
+    gap: 10px
+}
+
+
+.explanations-solar h3 {
+    font-size: 60px;
+}
+
+.explanations-solar-par p {
+    font-size: large;
+    margin-bottom: 8px;
+}
+
+.explanations-water {
+    justify-content: flex-end;
+    float: right;
+    margin-top: 300px;
+}
+
+    .explanations-water h3 {
+        font-size: 60px;
+    }
+
+.explanations-water-par p {
+    font-size: large;
+    margin-bottom: 8px;
+}
+
+#solar {
+    background-color: #00ab66;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    cursor: pointer;
+}
+
+#water {
+    background-color: #00ab66;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+    cursor: pointer;
+}
+
+.inputs h3 {
+    color: #1c1b1bce;
+}
+
+.inputs-product {
+    display: grid;
+    padding: 8px;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+}
+
+    .inputs-product label {
+        font-weight: 600;
+    }
+
+    .inputs-product input {
+        margin-bottom: 5px;
+    }
+
+#one {
+    font-weight: 600;
+}
+
+#two {
+    color: #00ab66;
+}
+
+#three {
+    font-weight: 600;
+}
+
+#four {
+    color: #00ab66;
+}
+
+.items div {
+    margin-bottom: 8px;
+}
+
+.items-total-retrieval-id {
+    display: grid;
+    gap: 8px;
+    width: 50px;
+}
+
+    .items-total-retrieval-id button {
+        background-color: #00ab66;
+        border: none;
+        padding: 8px;
+        color: white;
+        font-size: 15px;
+        font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+        cursor: pointer;
+    }
+
+.items-total-retrieval-textArea {
+    display: grid
+}
+
+.items-total-retrieval h3 {
+    color: #1c1b1bce;
+    text-align: center;
+}
+
+.items-total-retrieval hr {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.inputs-product button {
+    background-color: #00ab66;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.items-total-retrieval-textArea label {
+    font-weight: 600;
+}
+
+.items-total-retrieval-textArea textArea {
+    padding: 8px;
+    color: #1c1b1bce;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT','Trebuchet MS', sans-serif;
+    resize: none;
+}
+/*About us*/
+.aboutus {
+    background: #00ab670a;
+    padding: 8px;
+}
+
+    .aboutus h3 {
+        font-size: 60px;
+    }
+
+
+
+/*footer*/
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    background-color: #fff;
+    padding: 20px 60px;
+    border-top: 1px solid #70707070;
+    border-bottom: 1px solid #70707070;
+}
+
+/*Media Queries*/
+@media only screen and (max-width:900px) {
+    @media only screen and (max-width:600px) {
+    }
+}
