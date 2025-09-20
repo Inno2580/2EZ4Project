@@ -51,7 +51,7 @@ namespace GroupProject
             }
         }
 
-        public User login(string name, string email, string password)
+        public User login(string email, string password)
         {
             var hashedPassword = Secrecy.HashPassword(password);
             var user = (from u in db.Users
@@ -104,7 +104,6 @@ namespace GroupProject
                     {
                         Product_ID = np.Product_ID,
                         Product_Availability = np.Product_Availability,
-                        Product_Brand = np.Product_Brand,
                         Product_Name = np.Product_Name,
                         Product_Price = np.Product_Price,
                         Product_Quantity = np.Product_Quantity,
@@ -132,7 +131,6 @@ namespace GroupProject
                 {
                     Product_Name = product_name,
                     Product_Availability = product_availability,
-                    Product_Brand = product_brand,
                     Product_Price = product_price,
                     Product_Quantity = product_quantity,
                     Product_Updated_At = product_UpdatedAt

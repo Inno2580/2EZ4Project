@@ -17,7 +17,7 @@ namespace GroupProject
 
         //Function for retrieving User from database(LOGIN)
         [OperationContract]
-        User login(string name, string email, string password);
+        User login(string email, string password);
 
         //Returning a single product
         [OperationContract]
